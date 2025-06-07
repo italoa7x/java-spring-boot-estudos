@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [MatToolbarModule, MatButtonModule, RouterLink],
+  imports: [MatToolbarModule, MatButtonModule, RouterLink, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'IA generativa - Angular e Spring';
+  title = 'Go Horse AI';
 }
