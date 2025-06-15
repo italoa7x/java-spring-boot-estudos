@@ -1,4 +1,4 @@
-package com.springapi.api_ai.controllers;
+package com.springapi.api_ai.controllers.chat;
 
 import javax.validation.constraints.NotNull;
 

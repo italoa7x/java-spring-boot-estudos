@@ -7,7 +7,7 @@ import { ChatResponse } from './model/chat';
   providedIn: 'root'
 })
 export class SimpleChatService {
-  private readonly baseUrl = '/api/chat';
+  private readonly baseUrl = '/api/chat-memory';
   private http = inject(HttpClient);
 
   sendMessage(message: string): Observable<ChatResponse> {

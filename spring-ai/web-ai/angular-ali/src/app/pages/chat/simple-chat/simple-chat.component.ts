@@ -30,9 +30,7 @@ export class SimpleChatComponent {
 
 
 
-  messages = signal<IChatMessage[]>([
-    { text: 'Olá, amigo! 🤖', isBot: true }
-  ])
+  messages = signal<IChatMessage[]>([])
 
   sendMessage(): void {
     this.loading = true;
