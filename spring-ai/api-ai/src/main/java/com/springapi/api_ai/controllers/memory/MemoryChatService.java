@@ -3,6 +3,8 @@ package com.springapi.api_ai.controllers.memory;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.MessageWindowChatMemory;
+import org.springframework.ai.chat.memory.repository.jdbc.JdbcChatMemoryRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,7 +12,12 @@ public class MemoryChatService {
 
     private ChatClient chatClient;
 
-    public MemoryChatService(ChatClient.Builder chatClientBuilder, ChatMemory chatMemory) {
+    public MemoryChatService(ChatClient.Builder chatClientBuilder, JdbcChatMemoryRepository jdbcChatMemoryRepository) {
+        ChatMemory chatMemory = MessageWindowChatMemory.builder()
+                .chatMemoryRepository(jdbcChatMemoryRepository) // Essa linha deixa implicito o tipo do jdbc que esta sendo utilizado.
+                .maxMessages(10)
+                .build();
+
         this.chatClient = chatClientBuilder.defaultAdvisors(
             MessageChatMemoryAdvisor.builder(chatMemory).build()
         ).build();
@@ -18,6 +25,7 @@ public class MemoryChatService {
 
     public String simpleChat(String message) {
         return this.chatClient.prompt()
+                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, "1234"))
                 .user(message)
                 .call()
                 .content();
